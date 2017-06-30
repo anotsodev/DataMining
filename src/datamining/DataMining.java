@@ -6,11 +6,13 @@
 package datamining;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -19,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class DataMining extends Application {
@@ -38,8 +42,23 @@ public class DataMining extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String csvFile = "LinearRegressionDS.csv";
-                String csvFile2 = "Sample.csv";
+                String csvFile = "";
+                String csvFile2 = "";
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open Training Dataset for Linear Regression");
+                File file = fileChooser.showOpenDialog(primaryStage);
+                if(file != null) {
+                    csvFile = file.getName();
+                }
+                FileChooser fileChooser2 = new FileChooser();
+                fileChooser.setTitle("Open Unlabeled Dataset for Linear Regression");
+                
+                File file2 = fileChooser.showOpenDialog(primaryStage);
+                if(file2 != null) {
+                    csvFile2 = file2.getName();
+                }
+                //"LinearRegressionDS.csv";
+                //csvFile2 = "Sample.csv";
                 BufferedReader reader1 = null;
                 BufferedReader reader2 = null;
                 String line;
@@ -67,6 +86,8 @@ public class DataMining extends Application {
                         
                         n++;
                     }
+                    text += "\n";
+                    text += "\nNumber of Rows: "+x.length;
                     n = 0;
                     double sumX = 0.0;
                     while(n < x.length) {
@@ -110,11 +131,15 @@ public class DataMining extends Application {
                     text+="\n";
                     text+= "\tX Values\t\t\t\tPredicted Values\n";
                     text+="\n";
+                    int unlabeledRow = 0;
                     while((line = reader2.readLine()) != null) {
                         double prediction = a+(b*Double.valueOf(line));
                         
                         text+= "\t\t"+line+"\t\t\t\t"+prediction+"\n";
+                        unlabeledRow++;
                     }
+                    text += "\n";
+                    text += "\nNumber of Rows: "+unlabeledRow;
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -158,8 +183,21 @@ public class DataMining extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String text = "";
-                String csvFile = "Play-Dataset.csv";
-                String csvFile2 = "New-Day.csv";
+                String csvFile = "";
+                String csvFile2 = "";
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open Training Dataset for Naive Bayes");
+                File file = fileChooser.showOpenDialog(primaryStage);
+                if(file != null) {
+                    csvFile = file.getName();
+                }
+                FileChooser fileChooser2 = new FileChooser();
+                fileChooser.setTitle("Open Unlabeled Dataset for Naive Bayes");
+                
+                File file2 = fileChooser.showOpenDialog(primaryStage);
+                if(file2 != null) {
+                    csvFile2 = file2.getName();
+                }
                 BufferedReader reader = null;
                 BufferedReader reader2 = null;
                 String line = "";
@@ -208,20 +246,21 @@ public class DataMining extends Application {
                 int yes_count = 0;
                 int no_count = 0;
                 int n = 0;
-
+                int unlabeledRow = 0;
                 double total_yes_prob = 0.0;
                 double total_no_prob = 0.0;
                 try {
                     text += "\t\t\t\t=========== Training Dataset =========== \n";
                     text += "\n";
-                    text+= "Outlook\t\t\tTemperature\t\t\tHumidity\t\t\tWindy\t\t\tPlay\n";
+                    text+= String.format("%-20s%-20s%-20s%-20s%-20s","Outlook","Temperature","Humidity","Windy","Play")+"\n";
                     reader = new BufferedReader(new FileReader(csvFile));
                     reader2 = new BufferedReader(new FileReader(csvFile2));
                     while((line = reader.readLine()) != null) {
                         String[] playDs = line.split(splitCsv);
-                        text+= String.format("%-20s%20s%30s%30s%30s%n",playDs[0],playDs[1],playDs[2],playDs[3],playDs[4]);
+                        text+= String.format("%-20s%-30s%-20s%-20s%-10s",playDs[0],playDs[1],playDs[2],playDs[3],playDs[4])+"\n";
                         
                         n+=1;
+                        unlabeledRow++;
                         if(playDs[4].toLowerCase().equals("yes")) {
                             yes_count += 1;
                         }
@@ -298,10 +337,12 @@ public class DataMining extends Application {
                         }
                     }// End of While
                     text += "\n";
+                    text += "\nNumber of Rows: "+unlabeledRow;
+                    text += "\n";
                     text += ("\t\t\t\t=========== A New Day ===========\n");
                     text += "\n";
                     text+= "Outlook\t\t\tTemperature\t\t\tHumidity\t\t\tWindy\t\t\tPlay\n";
-                    
+                    unlabeledRow = 0;
                     while((line = reader2.readLine()) != null) {
 
                         String[] playDs = line.split(splitCsv);
@@ -310,6 +351,7 @@ public class DataMining extends Application {
                         String humidity = playDs[2].toLowerCase();
                         String windy = playDs[3].toLowerCase();
                         text+= String.format("%-20s%20s%30s%30s%30s%n",outlook,temperature,humidity,windy,"?");
+                        unlabeledRow++;
                         switch(outlook) {
                             case "sunny":
                                 outlook_prob_yes = ((double)sunny_yes/(double)yes_count);
@@ -361,6 +403,8 @@ public class DataMining extends Application {
                         }
 
                     }//End of While
+                    text += "\n";
+                    text += "\nNumber of Rows: "+unlabeledRow;
                    total_yes_prob = (outlook_prob_yes*temp_prob_yes*humidity_prob_yes*windy_prob_yes*((double)yes_count/(double)n));
                    total_no_prob = (outlook_prob_no*temp_prob_no*humidity_prob_no*windy_prob_no*((double)no_count/(double)n));
                    text+= "\n";
