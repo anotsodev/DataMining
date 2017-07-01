@@ -60,7 +60,7 @@ public class DataMining extends Application {
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Linear Regression");
                 
-                File file2 = fileChooser.showOpenDialog(primaryStage);
+                File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
                 }
@@ -203,7 +203,7 @@ public class DataMining extends Application {
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Naive Bayes");
                 
-                File file2 = fileChooser.showOpenDialog(primaryStage);
+                File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
                 }
