@@ -42,11 +42,18 @@ public class DataMining extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                GridPane linearPane = new GridPane();
+                linearPane.setAlignment(Pos.CENTER);
+                //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+                linearPane.setHgap(5.5);
+                linearPane.setVgap(5.5);
+                Stage stage1 = new Stage();
+                stage1.setTitle("Linear Regression");
                 String csvFile = "";
                 String csvFile2 = "";
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Open Training Dataset for Linear Regression");
-                File file = fileChooser.showOpenDialog(primaryStage);
+                File file = fileChooser.showOpenDialog(stage1);
                 if(file != null) {
                     csvFile = file.getName();
                 }
@@ -161,15 +168,10 @@ public class DataMining extends Application {
                 Text text1 = new Text(text);
                 
                 
-                GridPane linearPane = new GridPane();
-                linearPane.setAlignment(Pos.CENTER);
-                //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-                linearPane.setHgap(5.5);
-                linearPane.setVgap(5.5);
+                
                 linearPane.add(text1, 0,1);
                 
-                Stage stage1 = new Stage();
-                stage1.setTitle("Linear Regression");
+                
                 stage1.setScene(new Scene(linearPane, 500,500));
                 stage1.show();
                 
@@ -182,12 +184,19 @@ public class DataMining extends Application {
         button2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                GridPane linearPane = new GridPane();
+                linearPane.setAlignment(Pos.CENTER);
+                //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+                linearPane.setHgap(5.5);
+                linearPane.setVgap(5.5);
                 String text = "";
+                Stage stage1 = new Stage();
+                stage1.setTitle("Naive Bayes");
                 String csvFile = "";
                 String csvFile2 = "";
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Open Training Dataset for Naive Bayes");
-                File file = fileChooser.showOpenDialog(primaryStage);
+                File file = fileChooser.showOpenDialog(stage1);
                 if(file != null) {
                     csvFile = file.getName();
                 }
@@ -431,15 +440,10 @@ public class DataMining extends Application {
                 Text text1 = new Text(text);
                 
                 
-                GridPane linearPane = new GridPane();
-                linearPane.setAlignment(Pos.CENTER);
-                //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-                linearPane.setHgap(5.5);
-                linearPane.setVgap(5.5);
+                
                 linearPane.add(text1, 0,1);
                 
-                Stage stage1 = new Stage();
-                stage1.setTitle("Naive Bayes");
+                
                 stage1.setScene(new Scene(linearPane, 500,500));
                 stage1.show();
             }
