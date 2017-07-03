@@ -5,38 +5,53 @@
  */
 package datamining;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 //import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class DataMining extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
         FlowPane pane = new FlowPane();
         pane.setPadding(new Insets(10,10,10,10));
         pane.setHgap(5);
         pane.setVgap(25);
-        
+
         Text welcome = new Text();
         welcome.setText("Please choose one algorithm to display");
-        
+
         Button button1 = new Button();
         button1.setText("Linear Regression");
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,7 +74,7 @@ public class DataMining extends Application {
                 }
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Linear Regression");
-                
+
                 File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
@@ -87,10 +102,10 @@ public class DataMining extends Application {
 
                         String[] csvLine = line.split(splitCsv);
                         text+= "\t\t"+csvLine[0]+"\t\t\t\t\t"+csvLine[1]+"\n";
-                        
+
                         x[n] = Double.valueOf(csvLine[0]);
                         y[n] = Double.valueOf(csvLine[1]);
-                        
+
                         n++;
                     }
                     text += "\n";
@@ -132,7 +147,7 @@ public class DataMining extends Application {
 
                     double b = r*(sy/sx);
                     double a = meanY - (b*meanX);
-                    
+
                     text+="\n";
                     text+= "=========== Unlabeled Dataset =========== \n";
                     text+="\n";
@@ -141,7 +156,7 @@ public class DataMining extends Application {
                     int unlabeledRow = 0;
                     while((line = reader2.readLine()) != null) {
                         double prediction = a+(b*Double.valueOf(line));
-                        
+
                         text+= "\t\t"+line+"\t\t\t\t"+prediction+"\n";
                         unlabeledRow++;
                     }
@@ -163,22 +178,22 @@ public class DataMining extends Application {
                         }
                     }
                 }
-               
-                
+
+
                 Text text1 = new Text(text);
-                
-                
-                
+
+
+
                 linearPane.add(text1, 0,1);
-                
-                
+
+
                 stage1.setScene(new Scene(linearPane, 500,500));
                 stage1.show();
-                
-                
+
+
             }
         });
-        
+
         Button button2 = new Button();
         button2.setText("Naive Bayes");
         button2.setOnAction(new EventHandler<ActionEvent>() {
@@ -187,9 +202,10 @@ public class DataMining extends Application {
                 GridPane linearPane = new GridPane();
                 linearPane.setAlignment(Pos.CENTER);
                 //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+                ObservableList<Reviews> data = FXCollections.observableArrayList();
                 linearPane.setHgap(5.5);
                 linearPane.setVgap(5.5);
-                String text = "";
+                String toOutput = "";
                 Stage stage1 = new Stage();
                 stage1.setTitle("Naive Bayes");
                 String csvFile = "";
@@ -202,257 +218,252 @@ public class DataMining extends Application {
                 }
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Naive Bayes");
-                
+
                 File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
                 }
-                BufferedReader reader = null;
-                BufferedReader reader2 = null;
-                String line = "";
-                String splitCsv = ",";
-                double outlook_prob_yes = 0.0;
-                double temp_prob_yes = 0.0;
-                double humidity_prob_yes = 0.0;
-                double windy_prob_yes = 0.0;
-
-                double outlook_prob_no = 0.0;
-                double temp_prob_no = 0.0;
-                double humidity_prob_no = 0.0;
-                double windy_prob_no = 0.0;
-        //        YES Count
-                int sunny_yes = 0;
-                int overcast_yes = 0;
-                int rainy_yes = 0;
-
-                int hot_yes = 0;
-                int mild_yes = 0;
-                int cool_yes = 0;
-
-                int high_yes = 0;
-                int normal_yes = 0;
-
-                int true_yes = 0;
-                int false_yes = 0;
-        //        NO Count
-                int sunny_no = 0;
-                int overcast_no = 0;
-                int rainy_no = 0;
-
-                int hot_no = 0;
-                int mild_no = 0;
-                int cool_no = 0;
-
-                int high_no = 0;
-                int normal_no = 0;
-
-                int true_no = 0;
-                int false_no = 0;
-
-                double yes_prob = 0.0;
-                double no_prob = 0.0;
-
-                int yes_count = 0;
-                int no_count = 0;
-                int n = 0;
-                int unlabeledRow = 0;
-                double total_yes_prob = 0.0;
-                double total_no_prob = 0.0;
                 try {
-                    text += "\t\t\t\t=========== Training Dataset =========== \n";
-                    text += "\n";
-                    text+= String.format("%-20s%-20s%-20s%-20s%-20s","Outlook","Temperature","Humidity","Windy","Play")+"\n";
-                    reader = new BufferedReader(new FileReader(csvFile));
-                    reader2 = new BufferedReader(new FileReader(csvFile2));
-                    while((line = reader.readLine()) != null) {
-                        String[] playDs = line.split(splitCsv);
-                        text+= String.format("%-20s%-30s%-20s%-20s%-10s",playDs[0],playDs[1],playDs[2],playDs[3],playDs[4])+"\n";
-                        
-                        n+=1;
-                        unlabeledRow++;
-                        if(playDs[4].toLowerCase().equals("yes")) {
-                            yes_count += 1;
-                        }
-                        if(playDs[4].toLowerCase().equals("no")) {
-                            no_count += 1;
-                        }
-        //                Count number outlook with yes
-                        if(playDs[0].toLowerCase().equals("sunny") && playDs[4].toLowerCase().equals("yes")) {
-                            sunny_yes+=1;
-                        }
-                        if(playDs[0].toLowerCase().equals("overcast") && playDs[4].toLowerCase().equals("yes")) {
-                            overcast_yes+=1;
-                        }
-                        if(playDs[0].toLowerCase().equals("rainy") && playDs[4].toLowerCase().equals("yes")) {
-                            rainy_yes+=1;
-                        }
-        //                Count number of temperature with yes
-                        if(playDs[1].toLowerCase().equals("hot") && playDs[4].toLowerCase().equals("yes")) {
-                            hot_yes+=1;
-                        }
-                        if(playDs[1].toLowerCase().equals("mild") && playDs[4].toLowerCase().equals("yes")) {
-                            mild_yes+=1;
-                        }
-                        if(playDs[1].toLowerCase().equals("cool") && playDs[4].toLowerCase().equals("yes")) {
-                            cool_yes+=1;
-                        }
-        //                Count number of humidity with yes
-                        if(playDs[2].toLowerCase().equals("high") && playDs[4].toLowerCase().equals("yes")) {
-                            high_yes+=1;
-                        }
-                        if(playDs[2].toLowerCase().equals("normal") && playDs[4].toLowerCase().equals("yes")) {
-                            normal_yes+=1;
-                        }
-        //                Count windy with yes
-                        if(playDs[3].toLowerCase().equals("true") && playDs[4].toLowerCase().equals("yes")) {
-                            true_yes+=1;
-                        }
-                        if(playDs[3].toLowerCase().equals("false") && playDs[4].toLowerCase().equals("yes")) {
-                            false_yes+=1;
-                        }
-        //                Count number outlook with no
-                        if(playDs[0].toLowerCase().equals("sunny") && playDs[4].toLowerCase().equals("no")) {
-                            sunny_no+=1;
-                        }
-                        if(playDs[0].toLowerCase().equals("overcast") && playDs[4].toLowerCase().equals("no")) {
-                            overcast_no+=1;
-                        }
-                        if(playDs[0].toLowerCase().equals("rainy") && playDs[4].toLowerCase().equals("no")) {
-                            rainy_no+=1;
-                        }
-        //                Count number of temperature with no
-                        if(playDs[1].toLowerCase().equals("hot") && playDs[4].toLowerCase().equals("no")) {
-                            hot_no+=1;
-                        }
-                        if(playDs[1].toLowerCase().equals("mild") && playDs[4].toLowerCase().equals("no")) {
-                            mild_no+=1;
-                        }
-                        if(playDs[1].toLowerCase().equals("cool") && playDs[4].toLowerCase().equals("no")) {
-                            cool_no+=1;
-                        }
-        //                Count number of humidity with no
-                        if(playDs[2].toLowerCase().equals("high") && playDs[4].toLowerCase().equals("no")) {
-                            high_no+=1;
-                        }
-                        if(playDs[2].toLowerCase().equals("normal") && playDs[4].toLowerCase().equals("no")) {
-                            normal_no+=1;
-                        }
-        //                Count windy with yes
-                        if(playDs[3].toLowerCase().equals("true") && playDs[4].toLowerCase().equals("no")) {
-                            true_no+=1;
-                        }
-                        if(playDs[3].toLowerCase().equals("false") && playDs[4].toLowerCase().equals("no")) {
-                            false_no+=1;
-                        }
-                    }// End of While
-                    text += "\n";
-                    text += "\nNumber of Rows: "+unlabeledRow;
-                    text += "\n";
-                    text += ("\t\t\t\t=========== A New Day ===========\n");
-                    text += "\n";
-                    text+= "Outlook\t\t\tTemperature\t\t\tHumidity\t\t\tWindy\t\t\tPlay\n";
-                    unlabeledRow = 0;
-                    while((line = reader2.readLine()) != null) {
-
-                        String[] playDs = line.split(splitCsv);
-                        String outlook = playDs[0].toLowerCase();
-                        String temperature = playDs[1].toLowerCase();
-                        String humidity = playDs[2].toLowerCase();
-                        String windy = playDs[3].toLowerCase();
-                        text+= String.format("%-20s%20s%30s%30s%30s%n",outlook,temperature,humidity,windy,"?");
-                        unlabeledRow++;
-                        switch(outlook) {
-                            case "sunny":
-                                outlook_prob_yes = ((double)sunny_yes/(double)yes_count);
-                                outlook_prob_no = ((double)sunny_no/(double)no_count);
-                                break;
-                            case "overcast":
-                                outlook_prob_yes = ((double)overcast_yes/(double)yes_count);
-                                outlook_prob_no = ((double)overcast_no/(double)no_count);
-                                break;
-                            case "rainy":
-                                outlook_prob_yes = ((double)rainy_yes/(double)yes_count);
-                                outlook_prob_no = ((double)rainy_no/(double)no_count);
-                                break;
-                        }
-                        switch(temperature) {
-                            case "hot":
-                                temp_prob_yes = ((double)hot_yes/(double)yes_count);
-                                temp_prob_no = ((double)hot_no/(double)no_count);
-                                break;
-                            case "mild":
-                                temp_prob_yes = ((double)mild_yes/(double)yes_count);
-                                temp_prob_no = ((double)mild_no/(double)no_count);
-                                break;
-                            case "cool":
-                                temp_prob_yes = ((double)cool_yes/(double)yes_count);
-                                temp_prob_no = ((double)cool_no/(double)no_count);
-                                break;
-                        }
-                        switch(humidity) {
-                            case "high":
-                                humidity_prob_yes = ((double)high_yes/(double)yes_count);
-                                humidity_prob_no = ((double)high_no/(double)no_count);
-                                break;
-                            case "normal":
-                                humidity_prob_yes = ((double)normal_yes/(double)yes_count);
-                                humidity_prob_no = ((double)normal_no/(double)no_count);
-                                break;
-                        }
-                        switch(windy) {
-                            case "true":
-                                windy_prob_yes = ((double)true_yes/(double)yes_count);
-                                windy_prob_no = ((double)true_no/(double)no_count);
-
-                                break;
-                            case "false":
-                                windy_prob_yes = ((double)false_yes/(double)yes_count);
-                                windy_prob_no = ((double)false_no/(double)no_count);
-                                break;
+            /* Initialize variables */
+                    String unlabeledDatasetFile = csvFile2;
+                    String trainingDatasetFile = csvFile;
+                    List<String> wordList = new ArrayList<String>();
+             /* Read the csv files */
+                    BufferedReader trainingDataset = new BufferedReader(new FileReader(trainingDatasetFile));
+                    BufferedReader unlabeledDataset = new BufferedReader(new FileReader(unlabeledDatasetFile));
+                    Set<String> arrayOfClass = new HashSet<>();
+                    ArrayList<String> arrayOfWords = new ArrayList<>();
+                    ArrayList<Reviews> reviewsArray = new ArrayList<>();
+                    String line = "";
+                    int rows = 0;
+            /* Loop and add the content of the csv file to wordList array list*/
+                    while((line = trainingDataset.readLine()) != null) {
+                        String[] text = line.split(",");
+                        String[] words = text[0].split(" ");
+                        rows+=1;
+                        reviewsArray.add(new Reviews(rows,text[0],text[1]));
+                        String classification = text[1];
+                        arrayOfClass.add(classification);
+                /* Put the words inside the wordList */
+                        for(String word:words) {
+//                    <row_no>_<word>_<classification>
+                            arrayOfWords.add(word);
+                            wordList.add(String.valueOf(rows)+"_"+word+"_"+classification);
+                            //System.out.println(String.valueOf(rows)+"_"+word+"_"+classification);
                         }
 
-                    }//End of While
-                    text += "\n";
-                    text += "\nNumber of Rows: "+unlabeledRow;
-                   total_yes_prob = (outlook_prob_yes*temp_prob_yes*humidity_prob_yes*windy_prob_yes*((double)yes_count/(double)n));
-                   total_no_prob = (outlook_prob_no*temp_prob_no*humidity_prob_no*windy_prob_no*((double)no_count/(double)n));
-                   text+= "\n";
-                   if(total_yes_prob > total_no_prob) {
-                       text += String.format("%70s", "Play = Yes");
-                   }
-                   if(total_no_prob > total_yes_prob) {
-                       text+= String.format("%70s","Play = No");
-                   }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (reader != null) {
-                        try {
-                            reader.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } //end of while
+                    data = FXCollections.observableArrayList(reviewsArray);
+            /* Initialization of list of unique words with their respective class */
+                    Set<String> uniqueWords = new HashSet<>();
+                    List<String> uniqueWordsToCount = new ArrayList<>();
+                    HashMap<Integer, String> textList = new HashMap<>();
+                    ArrayList<String> uniqueWordsWithClass = new ArrayList<>();
+                    List<String> uniqueClassList = new ArrayList<>();
+                    List<String> wordListWithClass = new ArrayList<>();
+            /*Get the words inside the uniqueWords Set */
+                    for(String word:wordList) {
+                        String[] words = word.split("_");
+                        String x = words[0];
+                        String y = words[1];
+                        String z = words[2];
+                /* then add the word and its class to array list */
+                        textList.put(Integer.valueOf(x), z);
+                        uniqueWords.add(y);
+                        uniqueWordsWithClass.add(y+"_"+z);
+                        //wordListWithClass.add(y+"_"+z);
+                        uniqueWordsToCount.add(y);
+                    }
+                    for(String forArrayClass:arrayOfClass){
+                        for(String word:uniqueWords) {
+                            //System.out.println(word);
+                            wordListWithClass.add(word+"_"+forArrayClass);
+                            //System.out.println(word+"_"+forArrayClass);
                         }
                     }
+
+
+                    //Set<String> uniqueWordListWithClass = new HashSet<>(wordListWithClass);
+            /* HashMap for row/doc and its class [<ROW> <CLASS>] */
+                    for(Map.Entry m:textList.entrySet()) {
+                        uniqueClassList.add(String.valueOf(m.getValue()));
+                    }
+            /* Initialization for the set of unique classes */
+                    Set<String> uniqueClass = new HashSet<String>(uniqueClassList);
+            /* Initialization for the count of each unique classes */
+                    HashMap<String, Integer> classCount = new HashMap<>();
+            /* Initialization for the probability of each unique classes */
+                    HashMap<String, Double> parentProbability = new HashMap<>();
+                    int count = 0;
+
+                    for(String uc:uniqueClass) {
+                        for(Map.Entry m:textList.entrySet()) {
+                            //System.out.println(m.getKey()+" "+m.getValue());
+                            if(String.valueOf(m.getValue()).equalsIgnoreCase(uc)) {
+                                count++;
+                            }
+                        }
+                        classCount.put(uc,count);
+                        parentProbability.put(uc,((double) count/(double) rows));
+                        count = 0;
+                    }
+
+
+                    for(Map.Entry m:parentProbability.entrySet()) {
+                        //System.out.println(m.getKey()+" "+m.getValue());
+                    }
+                    int frequency = 0;
+                    HashMap<String, Integer> frequencyOfClass = new HashMap<>();
+                    for(Map.Entry m:classCount.entrySet()) {
+                        for(String word:wordListWithClass) {
+
+                            String[] words = word.split("_");
+                            String x = words[0];
+                            String y = words[1];
+                            if(y.equalsIgnoreCase(String.valueOf(m.getKey()))) {
+                                frequency+=Collections.frequency(uniqueWordsWithClass, word);
+                                //System.out.println(Collections.frequency(uniqueWordsWithClass, word));
+                            }
+
+                        }
+                        //System.out.println("================");
+                        //System.out.println(frequency);
+
+                        frequencyOfClass.put(String.valueOf(m.getKey()), frequency);
+                        frequency = 0;
+                    }
+                    int vocabulary = 0;
+                    for(String word: uniqueWords) {
+                        vocabulary+=1;
+                        //System.out.println(word);
+                    }
+                    //System.out.println("++++++++++++");
+                    HashMap<String, Double> computedWordWithClass = new HashMap<>();
+                    int nk = 0;
+                    int nn = 0;
+
+                    for(Map.Entry m:frequencyOfClass.entrySet()) {
+
+                        for(String word:wordListWithClass) {
+                            String[] words = word.split("_");
+                            String x = words[0];
+                            String y = words[1];
+                            nn = (int) m.getValue();
+                            //System.out.println(n);
+                            nk = (Collections.frequency(uniqueWordsWithClass, word));
+                            //System.out.println(nk);
+                            //System.out.println(word+" "+nk);
+                            if(y.equalsIgnoreCase(String.valueOf(m.getKey()))) {
+                                computedWordWithClass.put((x + "_" + y), ( ((double) nk + 1)/(vocabulary+nn) ) );
+                                //System.out.println(x + "_" + y+( ((double) nk + 1)/(vocabulary+nn) ) );
+                            }
+
+                        }
+                        //System.out.println("==============");
+                        //System.out.println(nn);
+
+                    }
+
+
+            /* Compute the Unlabeled Dataset */
+                    toOutput+="\n\t=======================================================";
+                    while((line = unlabeledDataset.readLine()) != null) {
+                        //System.out.println(line);
+                        String[] words = line.split(" ");
+                        toOutput += "\n\t\t\t\t\tUnlabeled Dataset: "+"'"+line+"'"+"\n";
+                        double res = 0.0;
+                        double temp = 0.0;
+                        for(Map.Entry m:frequencyOfClass.entrySet()) {
+                            //System.out.println(m.getKey());
+                            for(Map.Entry n:computedWordWithClass.entrySet()) {
+                                String computedWords = String.valueOf(n.getKey());
+                                String[] arrayOfComputedWords = computedWords.split("_");
+                                for(String word:words) {
+                                    if(word.equalsIgnoreCase(arrayOfComputedWords[0]) && arrayOfComputedWords[1].equalsIgnoreCase(String.valueOf(m.getKey()))) {
+
+                                        temp = (double) n.getValue();
+                                        if(res == 0) {
+                                            res = temp;
+                                        }else {
+                                            res *= temp;
+                                        }
+                                    }else {
+
+                                    }
+                                }
+                            }
+                            res = res*parentProbability.get(m.getKey());
+                            toOutput+="\t=======================================================\n";
+                            toOutput+="P("+m.getKey()+") : "+(parentProbability.get(m.getKey()))+"\t";
+                            toOutput+=" - \tComputed total for P("+m.getKey()+"): "+(res)+"\n";
+                            res = 0.0;
+                            temp = 0.0;
+                        }
+
+                    }
+
+                }catch(Exception e) {
+                    e.printStackTrace();
                 }
-                
-                Text text1 = new Text(text);
-                
-                
-                
-                linearPane.add(text1, 0,1);
-                
-                
-                stage1.setScene(new Scene(linearPane, 500,500));
+
+
+//
+//
+//
+//                linearPane.add(text1, 0,1);
+
+                TableView<Reviews> table = new TableView<>();
+                table.setMinHeight(400);
+                Scene scene = new Scene(new Group());
+                stage1.setTitle("Naive Bayes");
+                stage1.setWidth(720);
+                stage1.setHeight(720);
+
+                final Label label = new Label("Naive Bayes Text Classifier");
+                //label.setFont(new Font("Arial", 20));
+
+
+                TableColumn rowsCol = new TableColumn("Row #");
+                rowsCol.setMinWidth(100);
+                rowsCol.setCellValueFactory(
+                        new PropertyValueFactory<>("row"));
+
+                TableColumn textCol = new TableColumn("Text");
+                textCol.setMinWidth(400);
+                textCol.setCellValueFactory(
+                        new PropertyValueFactory<>("text"));
+
+                TableColumn reviewClassCol = new TableColumn("Class");
+                reviewClassCol.setMinWidth(200);
+                reviewClassCol.setCellValueFactory(
+                        new PropertyValueFactory<>("reviewClass"));
+
+                table.setItems(data);
+                table.getColumns().addAll(rowsCol, textCol, reviewClassCol);
+
+                Text text1 = new Text(toOutput);
+                final HBox hbox = new HBox();
+                hbox.setSpacing(5);
+                hbox.setPadding(new Insets(10, 0, 0, 10));
+                hbox.getChildren().addAll(text1);
+                final VBox vbox = new VBox();
+                vbox.setSpacing(5);
+                vbox.setPadding(new Insets(10, 0, 0, 10));
+                vbox.getChildren().addAll(label, table, hbox);
+
+
+                ((Group) scene.getRoot()).getChildren().addAll(vbox);
+
+
+                stage1.setScene(scene);
                 stage1.show();
             }
         });
         pane.getChildren().add(welcome);
         pane.getChildren().add(button1);
         pane.getChildren().add(button2);
-        
-        Scene scene = new Scene(pane, 250,100);
+
+        Scene scene = new Scene(pane, 300,150);
         primaryStage.setTitle("Data Mining Algorithms");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -464,5 +475,42 @@ public class DataMining extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    public class Reviews {
+        private final SimpleIntegerProperty row;
+        private final SimpleStringProperty text;
+        private final SimpleStringProperty reviewClass;
+
+        private Reviews(int row, String text, String reviewClass) {
+            this.row = new SimpleIntegerProperty(row);
+            this.text = new SimpleStringProperty(text);
+            this.reviewClass = new SimpleStringProperty(reviewClass);
+        }
+
+        public int getRow() {
+            return row.get();
+        }
+
+        public void setRow(int sRow) {
+            row.set(sRow);
+        }
+
+        public String getText() {
+            return text.get();
+        }
+
+        public void setText(String sText) {
+            text.set(sText);
+        }
+
+        public String getReviewClass() {
+            return reviewClass.get();
+        }
+
+        public void setReviewClass(String sReviewClass) {
+            reviewClass.set(sReviewClass);
+        }
+    }
+
 }
+
