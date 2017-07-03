@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85ea8176-c060-430c-aa57-375808b923d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/NaiveBayesTextClassifier.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifier.java" afterPath="$PROJECT_DIR$/src/dumps/NaiveBayesTextClassifier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Reviews.csv" afterPath="$PROJECT_DIR$/Reviews.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LinearRegressionDS.csv" afterPath="$PROJECT_DIR$/LinearRegressionDS.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/datamining/DataMining.java" afterPath="$PROJECT_DIR$/src/datamining/DataMining.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -38,28 +31,26 @@
       <file leaf-file-name="DataMining.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="485" column="23" lean-forward="false" selection-start-line="485" selection-start-column="23" selection-end-line="485" selection-end-column="23" />
+            <state relative-caret-position="210">
+              <caret line="109" column="21" lean-forward="true" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
               <folding>
-                <element signature="e#0#21422#0" expanded="true" />
+                <element signature="e#0#25101#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#8780#8788#0" expanded="true" />
-                <element signature="e#12360#12368#0" expanded="true" />
-                <element signature="e#20430#20431#0" expanded="true" />
-                <element signature="e#20458#20459#0" expanded="true" />
-                <element signature="e#20931#20932#0" expanded="true" />
-                <element signature="e#20971#20972#0" expanded="true" />
-                <element signature="e#21011#21012#0" expanded="true" />
-                <element signature="e#21048#21049#0" expanded="true" />
-                <element signature="e#21083#21084#0" expanded="true" />
-                <element signature="e#21124#21125#0" expanded="true" />
-                <element signature="e#21169#21170#0" expanded="true" />
-                <element signature="e#21208#21209#0" expanded="true" />
-                <element signature="e#21250#21251#0" expanded="true" />
-                <element signature="e#21298#21299#0" expanded="true" />
-                <element signature="e#21357#21358#0" expanded="true" />
-                <element signature="e#21410#21411#0" expanded="true" />
+                <element signature="e#11513#11521#0" expanded="true" />
+                <element signature="e#15093#15101#0" expanded="true" />
+                <element signature="e#24782#24783#0" expanded="true" />
+                <element signature="e#24825#24826#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LinearRegressionDS.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LinearRegressionDS.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,6 +93,7 @@
         <option value="$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifier.java" />
         <option value="$PROJECT_DIR$/src/dumps/NaiveBayesTextClassifier.java" />
         <option value="$PROJECT_DIR$/Reviews.csv" />
+        <option value="$PROJECT_DIR$/LinearRegressionDS.csv" />
         <option value="$PROJECT_DIR$/src/datamining/DataMining.java" />
       </list>
     </option>
@@ -133,8 +125,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -185,7 +177,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -655,11 +647,12 @@
       <updated>1499055123898</updated>
       <workItem from="1499055130531" duration="2084000" />
       <workItem from="1499066050597" duration="35629000" />
+      <workItem from="1499123692955" duration="1995000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37713000" />
+    <option name="totallyTimeSpent" value="39708000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -672,6 +665,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="27" width="1366" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -683,7 +677,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -723,27 +717,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25101#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#11513#11521#0" expanded="true" />
+            <element signature="e#15093#15101#0" expanded="true" />
+            <element signature="e#24782#24783#0" expanded="true" />
+            <element signature="e#24825#24826#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="728">
           <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
           <folding>
-            <element signature="e#0#21422#0" expanded="true" />
+            <element signature="e#0#25101#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#8780#8788#0" expanded="true" />
-            <element signature="e#12360#12368#0" expanded="true" />
-            <element signature="e#20430#20431#0" expanded="true" />
-            <element signature="e#20458#20459#0" expanded="true" />
-            <element signature="e#20931#20932#0" expanded="true" />
-            <element signature="e#20971#20972#0" expanded="true" />
-            <element signature="e#21011#21012#0" expanded="true" />
-            <element signature="e#21048#21049#0" expanded="true" />
-            <element signature="e#21083#21084#0" expanded="true" />
-            <element signature="e#21124#21125#0" expanded="true" />
-            <element signature="e#21169#21170#0" expanded="true" />
-            <element signature="e#21208#21209#0" expanded="true" />
-            <element signature="e#21250#21251#0" expanded="true" />
-            <element signature="e#21298#21299#0" expanded="true" />
-            <element signature="e#21357#21358#0" expanded="true" />
-            <element signature="e#21410#21411#0" expanded="true" />
+            <element signature="e#11513#11521#0" expanded="true" />
+            <element signature="e#15093#15101#0" expanded="true" />
+            <element signature="e#24782#24783#0" expanded="true" />
+            <element signature="e#24825#24826#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -756,35 +753,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LinearRegressionDS.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/New-Day.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifierAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifierAlgorithm.java" />
     <entry file="file://$PROJECT_DIR$/UnlabeledDatasetReview.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -800,33 +780,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LinearRegressionDS.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="485" column="23" lean-forward="false" selection-start-line="485" selection-start-column="23" selection-end-line="485" selection-end-column="23" />
+        <state relative-caret-position="210">
+          <caret line="109" column="21" lean-forward="true" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
           <folding>
-            <element signature="e#0#21422#0" expanded="true" />
+            <element signature="e#0#25101#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#8780#8788#0" expanded="true" />
-            <element signature="e#12360#12368#0" expanded="true" />
-            <element signature="e#20430#20431#0" expanded="true" />
-            <element signature="e#20458#20459#0" expanded="true" />
-            <element signature="e#20931#20932#0" expanded="true" />
-            <element signature="e#20971#20972#0" expanded="true" />
-            <element signature="e#21011#21012#0" expanded="true" />
-            <element signature="e#21048#21049#0" expanded="true" />
-            <element signature="e#21083#21084#0" expanded="true" />
-            <element signature="e#21124#21125#0" expanded="true" />
-            <element signature="e#21169#21170#0" expanded="true" />
-            <element signature="e#21208#21209#0" expanded="true" />
-            <element signature="e#21250#21251#0" expanded="true" />
-            <element signature="e#21298#21299#0" expanded="true" />
-            <element signature="e#21357#21358#0" expanded="true" />
-            <element signature="e#21410#21411#0" expanded="true" />
+            <element signature="e#11513#11521#0" expanded="true" />
+            <element signature="e#15093#15101#0" expanded="true" />
+            <element signature="e#24782#24783#0" expanded="true" />
+            <element signature="e#24825#24826#0" expanded="true" />
           </folding>
         </state>
       </provider>

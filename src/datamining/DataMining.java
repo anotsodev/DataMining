@@ -11,9 +11,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -57,6 +59,7 @@ public class DataMining extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                ObservableList<LinearRegression> data = FXCollections.observableArrayList();
                 GridPane linearPane = new GridPane();
                 linearPane.setAlignment(Pos.CENTER);
                 //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
@@ -85,31 +88,44 @@ public class DataMining extends Application {
                 BufferedReader reader2 = null;
                 String line;
                 String splitCsv = ",";
-                double[] x = new double[10];
-                double[] y = new double[10];
+                double[] x = null;
+                double[] y = null;
                 double meanX = 0.0;
                 double meanY = 0.0;
                 int n = 0;
-                String text = "";
+                String toOutput = "";
+
                 try {
+                    int row = 0;
+                    int checkRowCount = 0;
                     reader1 = new BufferedReader(new FileReader(csvFile));
                     reader2 = new BufferedReader(new FileReader(csvFile2));
-                    text += "=========== Training Dataset =========== \n";
-                    text+="\n";
-                    text += "\tX Value\t\t\t\tY Values\n";
-                    text+="\n";
+                    //toOutput += "=========== Training Dataset =========== \n";
+                    //toOutput+="\n";
+                    //toOutput += "\tX Value\t\t\t\tY Values\n";
+                    //toOutput+="\n";
+                    ArrayList<LinearRegression> linearRegressionArray = new ArrayList<>();
+                    while((line = reader1.readLine()) != null) {
+                        checkRowCount+=1;
+                    }
+                    x = new double[checkRowCount];
+                    y = new double[checkRowCount];
+                    reader1 = new BufferedReader(new FileReader(csvFile));
                     while((line = reader1.readLine()) != null) {
 
                         String[] csvLine = line.split(splitCsv);
-                        text+= "\t\t"+csvLine[0]+"\t\t\t\t\t"+csvLine[1]+"\n";
-
+                        //toOutput+= "\t\t"+csvLine[0]+"\t\t\t\t\t"+csvLine[1]+"\n";
+                        row += 1;
                         x[n] = Double.valueOf(csvLine[0]);
                         y[n] = Double.valueOf(csvLine[1]);
 
+                        linearRegressionArray.add(new LinearRegression(row, String.valueOf(x[n]), String.valueOf(y[n])));
+
                         n++;
                     }
-                    text += "\n";
-                    text += "\nNumber of Rows: "+x.length;
+                    data = FXCollections.observableArrayList(linearRegressionArray);
+                    //toOutput += "\n";
+                    //toOutput += "\nNumber of Rows: "+x.length;
                     n = 0;
                     double sumX = 0.0;
                     while(n < x.length) {
@@ -148,20 +164,20 @@ public class DataMining extends Application {
                     double b = r*(sy/sx);
                     double a = meanY - (b*meanX);
 
-                    text+="\n";
-                    text+= "=========== Unlabeled Dataset =========== \n";
-                    text+="\n";
-                    text+= "\tX Values\t\t\t\tPredicted Values\n";
-                    text+="\n";
+                    toOutput+="\n";
+                    toOutput+= "=========== Unlabeled Dataset =========== \n";
+                    toOutput+="\n";
+                    toOutput+= "\tX Values\t\t\t\tPredicted Values\n";
+                    toOutput+="\n";
                     int unlabeledRow = 0;
                     while((line = reader2.readLine()) != null) {
                         double prediction = a+(b*Double.valueOf(line));
 
-                        text+= "\t\t"+line+"\t\t\t\t"+prediction+"\n";
+                        toOutput+= "\t\t"+line+"\t\t\t\t"+prediction+"\n";
                         unlabeledRow++;
                     }
-                    text += "\n";
-                    text += "\nNumber of Rows: "+unlabeledRow;
+                    toOutput += "\n";
+                    toOutput += "\nNumber of Rows: "+unlabeledRow;
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -180,15 +196,60 @@ public class DataMining extends Application {
                 }
 
 
-                Text text1 = new Text(text);
+//                Text text1 = new Text(text);
+//
+//
+//
+//                linearPane.add(text1, 0,1);
+
+                TableView<LinearRegression> table = new TableView<>();
+                table.setMinHeight(400);
+                Scene scene = new Scene(new Group());
+                stage1.setTitle("Linear Regression");
+                stage1.setWidth(720);
+                stage1.setHeight(720);
+
+                final Label label = new Label("Linear Regression Algorithm");
+                //label.setFont(new Font("Arial", 20));
 
 
+                TableColumn rowsCol = new TableColumn("Row #");
+                rowsCol.setMinWidth(100);
+                rowsCol.setCellValueFactory(
+                        new PropertyValueFactory<>("row"));
 
-                linearPane.add(text1, 0,1);
+                TableColumn xValue = new TableColumn("X Value");
+                xValue.setMinWidth(400);
+                xValue.setCellValueFactory(
+                        new PropertyValueFactory<>("xValue"));
+
+                TableColumn yValue = new TableColumn("Y Value");
+                yValue.setMinWidth(200);
+                yValue.setCellValueFactory(
+                        new PropertyValueFactory<>("yValue"));
+
+                table.setItems(data);
+                table.getColumns().addAll(rowsCol, xValue, yValue);
+
+                Text text1 = new Text(toOutput);
+                final HBox hbox = new HBox();
+                hbox.setSpacing(5);
+                hbox.setPadding(new Insets(10, 0, 0, 10));
+                hbox.getChildren().addAll(text1);
+                final VBox vbox = new VBox();
+                vbox.setSpacing(5);
+                vbox.setPadding(new Insets(10, 0, 0, 10));
+                vbox.getChildren().addAll(label, table, hbox);
 
 
-                stage1.setScene(new Scene(linearPane, 500,500));
+                ((Group) scene.getRoot()).getChildren().addAll(vbox);
+
+
+                stage1.setScene(scene);
                 stage1.show();
+
+//                stage1.setScene(new Scene(linearPane, 500,500));
+//                stage1.show();
 
 
             }
@@ -509,6 +570,42 @@ public class DataMining extends Application {
 
         public void setReviewClass(String sReviewClass) {
             reviewClass.set(sReviewClass);
+        }
+    }
+
+    public class LinearRegression {
+        private final SimpleIntegerProperty row;
+        private final SimpleStringProperty xValue;
+        private final SimpleStringProperty yValue;
+
+        private LinearRegression(int row, String xValue, String yValue) {
+            this.row = new SimpleIntegerProperty(row);
+            this.xValue = new SimpleStringProperty(xValue);
+            this.yValue = new SimpleStringProperty(yValue);
+        }
+
+        public int getRow() {
+            return row.get();
+        }
+
+        public void setRow(int sRow) {
+            row.set(sRow);
+        }
+
+        public String getXValue() {
+            return xValue.get();
+        }
+
+        public void setXValue(String sXValue) {
+            xValue.set(sXValue);
+        }
+
+        public String getYValue() {
+            return yValue.get();
+        }
+
+        public void setYValue(String sYValue) {
+            yValue.set(sYValue);
         }
     }
 
