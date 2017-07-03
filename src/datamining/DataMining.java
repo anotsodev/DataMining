@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javafx.geometry.Insets;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
+//import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,7 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
+//import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
