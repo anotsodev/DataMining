@@ -316,11 +316,11 @@ public class DataMining extends Application {
                     csvFile3 = "blank.txt";
                 }
                 try {
-            /* Initialize variables */
+/* Initialize variables */
                     String unlabeledDatasetFile = csvFile2;
                     String trainingDatasetFile = csvFile;
-                    List<String> wordList = new ArrayList<String>();
-             /* Read the csv files */
+                    ArrayList<String> wordList = new ArrayList<String>();
+/* Read the csv files */
                     BufferedReader trainingDataset = new BufferedReader(new FileReader(trainingDatasetFile));
                     BufferedReader unlabeledDataset = new BufferedReader(new FileReader(unlabeledDatasetFile));
                     BufferedReader stopWordsFile = new BufferedReader(new FileReader(csvFile3));
@@ -337,7 +337,7 @@ public class DataMining extends Application {
                         stopWords.add(nLine);
                         System.out.println(nLine);
                     }
-            /* Loop and add the content of the csv file to wordList array list*/
+/* Loop and add the content of the csv file to wordList array list*/
                     while((line = trainingDataset.readLine()) != null) {
                         String[] text = line.split(",");
                         String[] words = text[0].split(" ");
@@ -345,7 +345,7 @@ public class DataMining extends Application {
                         reviewsArray.add(new Reviews(rows,text[0],text[1]));
                         String classification = text[1];
                         arrayOfClass.add(classification);
-                /* Put the words inside the wordList */
+/* Put the words inside the wordList */
                         for(String word:words) {
 //                    <row_no>_<word>_<classification>
                             if(!stopWords.contains(word)) {
@@ -359,26 +359,28 @@ public class DataMining extends Application {
 
                     } //end of while
                     data = FXCollections.observableArrayList(reviewsArray);
-            /* Initialization of list of unique words with their respective class */
+/* Initialization of list of unique words with their respective class */
                     Set<String> uniqueWords = new HashSet<>();
                     List<String> uniqueWordsToCount = new ArrayList<>();
                     HashMap<Integer, String> textList = new HashMap<>();
                     ArrayList<String> uniqueWordsWithClass = new ArrayList<>();
                     List<String> uniqueClassList = new ArrayList<>();
                     List<String> wordListWithClass = new ArrayList<>();
-            /*Get the words inside the uniqueWords Set */
+/*Get the words from wordList */
                     for(String word:wordList) {
                         String[] words = word.split("_");
                         String x = words[0];
                         String y = words[1];
                         String z = words[2];
-                /* then add the word and its class to array list */
+/* then add the words and its class to set and array list */
+/* The Set<String> uniqueWords will contain the unique words retrieved from wordList */
                         textList.put(Integer.valueOf(x), z);
                         uniqueWords.add(y);
                         uniqueWordsWithClass.add(y+"_"+z);
                         //wordListWithClass.add(y+"_"+z);
                         uniqueWordsToCount.add(y);
                     }
+/* Concatenate unique words with their respective class <unique_word>_<class> */
                     for(String forArrayClass:arrayOfClass){
                         for(String word:uniqueWords) {
                             //System.out.println(word);
@@ -389,21 +391,22 @@ public class DataMining extends Application {
 
 
                     //Set<String> uniqueWordListWithClass = new HashSet<>(wordListWithClass);
-            /* HashMap for row/doc and its class [<ROW> <CLASS>] */
+/* HashMap for row/doc and its class [<ROW> <CLASS>] */
                     for(Map.Entry m:textList.entrySet()) {
                         uniqueClassList.add(String.valueOf(m.getValue()));
                     }
-            /* Initialization for the set of unique classes */
+/* Initialization for the set of unique classes */
                     Set<String> uniqueClass = new HashSet<String>(uniqueClassList);
-            /* Initialization for the count of each unique classes */
+/* Initialization for the count of each unique classes */
                     HashMap<String, Integer> classCount = new HashMap<>();
-            /* Initialization for the probability of each unique classes */
+/* Initialization for the probability of each unique classes */
                     HashMap<String, Double> parentProbability = new HashMap<>();
                     int count = 0;
-
+/* Get the unique class and count the instances */
                     for(String uc:uniqueClass) {
                         for(Map.Entry m:textList.entrySet()) {
                             //System.out.println(m.getKey()+" "+m.getValue());
+                            
                             if(String.valueOf(m.getValue()).equalsIgnoreCase(uc)) {
                                 count++;
                             }
@@ -412,11 +415,7 @@ public class DataMining extends Application {
                         parentProbability.put(uc,((double) count/(double) rows));
                         count = 0;
                     }
-
-
-                    for(Map.Entry m:parentProbability.entrySet()) {
-                        //System.out.println(m.getKey()+" "+m.getValue());
-                    }
+/* Get the frequency of each unique words */
                     int frequency = 0;
                     HashMap<String, Integer> frequencyOfClass = new HashMap<>();
                     for(Map.Entry m:classCount.entrySet()) {
@@ -438,6 +437,7 @@ public class DataMining extends Application {
                         frequency = 0;
                     }
                     int vocabulary = 0;
+                    /* Count the number of words in the vocabulary */
                     for(String word: uniqueWords) {
                         vocabulary+=1;
                         //System.out.println(word);
@@ -446,7 +446,9 @@ public class DataMining extends Application {
                     HashMap<String, Double> computedWordWithClass = new HashMap<>();
                     int nk = 0;
                     int nn = 0;
-
+/* Compute the probability of each word with their respective class. Ex. Hate_negative = 0.125
+                        then place it to HashMap
+*/
                     for(Map.Entry m:frequencyOfClass.entrySet()) {
 
                         for(String word:wordListWithClass) {
@@ -470,12 +472,13 @@ public class DataMining extends Application {
                     }
 
 
-            /* Compute the Unlabeled Dataset */
+/* Compute the Unlabeled Dataset */
                     double tokenMinVal = tokenMinValField;
                     toOutput1+="Minimum value for unique tokens: "+tokenMinVal+"\n\n";
                     toOutput1+="--------------------------------------------------------------------------------\n\n";
                     String tempString = "";
                     String tempString2 = "";
+/* Initialization of Set<String> for unique words from dataset */
                     Set<String> uniqueUnlabeledDatasetWords = new HashSet<>();
                     double temp1 = 0.0;
                     toOutput1+="Computed Probabilities\n\n";
@@ -493,7 +496,10 @@ public class DataMining extends Application {
 
                     double res = 0.0;
                     double temp = 0.0;
-
+/* Compute the probability to predict the class of the unlabeled dataset 
+                    P(W|+) = P(W1|+)...P(Wn|+)
+                    P(W|-) = P(W1|-)...P(Wn|-)
+*/
                     for(Map.Entry m:frequencyOfClass.entrySet()) {
                         tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset)\n\n";
                         for(String word:uniqueUnlabeledDatasetWords) {
@@ -513,6 +519,7 @@ public class DataMining extends Application {
                         }
 
                         res = res*parentProbability.get(m.getKey());
+/* Get the highest computed probability that will determine the class of unlabeled dataset */
                         if(temp1 > res) {
                             tempString2 = "";
                             tempString2 += temp1+" (Highest computed probability)\n\n";
