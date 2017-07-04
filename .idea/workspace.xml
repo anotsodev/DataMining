@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85ea8176-c060-430c-aa57-375808b923d1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LinearRegressionDS.csv" afterPath="$PROJECT_DIR$/LinearRegressionDS.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/blank.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$1.class" afterPath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$2.class" afterPath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$LinearRegression.class" afterPath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$LinearRegression.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$Reviews.class" afterPath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining$Reviews.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining.class" afterPath="$PROJECT_DIR$/out/production/DataMining/datamining/DataMining.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Reviews.csv" afterPath="$PROJECT_DIR$/Reviews.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UnlabeledDatasetReview.csv" afterPath="$PROJECT_DIR$/UnlabeledDatasetReview.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/datamining/DataMining.java" afterPath="$PROJECT_DIR$/src/datamining/DataMining.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,16 +39,24 @@
       <file leaf-file-name="DataMining.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="109" column="21" lean-forward="true" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
+            <state relative-caret-position="234">
+              <caret line="688" column="50" lean-forward="true" selection-start-line="688" selection-start-column="50" selection-end-line="688" selection-end-column="50" />
               <folding>
-                <element signature="e#0#25101#0" expanded="true" />
+                <element signature="e#0#30227#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#11513#11521#0" expanded="true" />
-                <element signature="e#15093#15101#0" expanded="true" />
-                <element signature="e#24782#24783#0" expanded="true" />
-                <element signature="e#24825#24826#0" expanded="true" />
+                <element signature="e#12830#12838#0" expanded="true" />
+                <element signature="e#17062#17070#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="blank.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blank.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -50,6 +66,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
               <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Reviews.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Reviews.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="4" column="34" lean-forward="true" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnlabeledDatasetReview.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UnlabeledDatasetReview.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="78" lean-forward="false" selection-start-line="0" selection-start-column="78" selection-end-line="0" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -89,11 +125,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifierAlgorithm.java" />
-        <option value="$PROJECT_DIR$/UnlabeledDatasetReview.csv" />
         <option value="$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifier.java" />
         <option value="$PROJECT_DIR$/src/dumps/NaiveBayesTextClassifier.java" />
-        <option value="$PROJECT_DIR$/Reviews.csv" />
         <option value="$PROJECT_DIR$/LinearRegressionDS.csv" />
+        <option value="$PROJECT_DIR$/Reviews.csv" />
+        <option value="$PROJECT_DIR$/UnlabeledDatasetReview.csv" />
         <option value="$PROJECT_DIR$/src/datamining/DataMining.java" />
       </list>
     </option>
@@ -127,6 +163,7 @@
     <panes>
       <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -177,7 +214,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -647,12 +683,13 @@
       <updated>1499055123898</updated>
       <workItem from="1499055130531" duration="2084000" />
       <workItem from="1499066050597" duration="35629000" />
-      <workItem from="1499123692955" duration="1995000" />
+      <workItem from="1499123692955" duration="2722000" />
+      <workItem from="1499152256610" duration="14881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39708000" />
+    <option name="totallyTimeSpent" value="55316000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -677,7 +714,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24803768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -720,12 +757,31 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#25101#0" expanded="true" />
+            <element signature="e#0#30227#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#11513#11521#0" expanded="true" />
-            <element signature="e#15093#15101#0" expanded="true" />
-            <element signature="e#24782#24783#0" expanded="true" />
-            <element signature="e#24825#24826#0" expanded="true" />
+            <element signature="e#12830#12838#0" expanded="true" />
+            <element signature="e#17062#17070#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LinearRegressionDS.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#30227#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#12830#12838#0" expanded="true" />
+            <element signature="e#17062#17070#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -735,12 +791,10 @@
         <state relative-caret-position="728">
           <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
           <folding>
-            <element signature="e#0#25101#0" expanded="true" />
+            <element signature="e#0#30227#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#11513#11521#0" expanded="true" />
-            <element signature="e#15093#15101#0" expanded="true" />
-            <element signature="e#24782#24783#0" expanded="true" />
-            <element signature="e#24825#24826#0" expanded="true" />
+            <element signature="e#12830#12838#0" expanded="true" />
+            <element signature="e#17062#17070#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -761,13 +815,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamining/NaiveBayesTextClassifierAlgorithm.java" />
-    <entry file="file://$PROJECT_DIR$/UnlabeledDatasetReview.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dumps/NaiveBayesTextClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -776,10 +823,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Play-Dataset.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/share/javasdk/jdk1.8.0_131/javafx-src.zip!/javafx/event/EventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Reviews.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        <state relative-caret-position="56">
+          <caret line="4" column="34" lean-forward="true" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UnlabeledDatasetReview.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="78" lean-forward="false" selection-start-line="0" selection-start-column="78" selection-end-line="0" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blank.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -793,15 +873,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/datamining/DataMining.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="109" column="21" lean-forward="true" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
+        <state relative-caret-position="234">
+          <caret line="688" column="50" lean-forward="true" selection-start-line="688" selection-start-column="50" selection-end-line="688" selection-end-column="50" />
           <folding>
-            <element signature="e#0#25101#0" expanded="true" />
+            <element signature="e#0#30227#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#11513#11521#0" expanded="true" />
-            <element signature="e#15093#15101#0" expanded="true" />
-            <element signature="e#24782#24783#0" expanded="true" />
-            <element signature="e#24825#24826#0" expanded="true" />
+            <element signature="e#12830#12838#0" expanded="true" />
+            <element signature="e#17062#17070#0" expanded="true" />
           </folding>
         </state>
       </provider>

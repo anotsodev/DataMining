@@ -32,7 +32,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -46,19 +48,28 @@ public class DataMining extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FlowPane pane = new FlowPane();
+        GridPane pane = new GridPane();
         pane.setPadding(new Insets(10,10,10,10));
         pane.setHgap(5);
-        pane.setVgap(25);
+        pane.setVgap(5);
 
         Text welcome = new Text();
         welcome.setText("Please choose one algorithm to display");
+        final TextField uniqueTokenField = new TextField();
+        Label uniqueTokenLabel = new Label();
+        Label uniqueTokenLabel2 = new Label();
+        uniqueTokenField.setPrefColumnCount(2);
+        uniqueTokenField.setText("0.0001");
+        uniqueTokenLabel.setWrapText(true);
+        uniqueTokenLabel.setText("Please enter the minimum value for unique tokens");
+        uniqueTokenLabel2.setText("(For Naive Bayes Classifier)");
 
         Button button1 = new Button();
         button1.setText("Linear Regression");
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 ObservableList<LinearRegression> data = FXCollections.observableArrayList();
                 GridPane linearPane = new GridPane();
                 linearPane.setAlignment(Pos.CENTER);
@@ -74,6 +85,8 @@ public class DataMining extends Application {
                 File file = fileChooser.showOpenDialog(stage1);
                 if(file != null) {
                     csvFile = file.getName();
+                }else {
+                    csvFile = "blank.txt";
                 }
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Linear Regression");
@@ -81,6 +94,8 @@ public class DataMining extends Application {
                 File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
+                }else {
+                    csvFile2 = "blank.txt";
                 }
                 //"LinearRegressionDS.csv";
                 //csvFile2 = "Sample.csv";
@@ -260,6 +275,7 @@ public class DataMining extends Application {
         button2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                double tokenMinValField = Double.valueOf(uniqueTokenField.getText());
                 GridPane linearPane = new GridPane();
                 linearPane.setAlignment(Pos.CENTER);
                 //linearPane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
@@ -267,15 +283,19 @@ public class DataMining extends Application {
                 linearPane.setHgap(5.5);
                 linearPane.setVgap(5.5);
                 String toOutput = "";
+                String toOutput1 = "";
                 Stage stage1 = new Stage();
                 stage1.setTitle("Naive Bayes");
                 String csvFile = "";
                 String csvFile2 = "";
+                String csvFile3 = "";
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Open Training Dataset for Naive Bayes");
                 File file = fileChooser.showOpenDialog(stage1);
                 if(file != null) {
                     csvFile = file.getName();
+                }else {
+                    csvFile = "blank.txt";
                 }
                 FileChooser fileChooser2 = new FileChooser();
                 fileChooser.setTitle("Open Unlabeled Dataset for Naive Bayes");
@@ -283,6 +303,17 @@ public class DataMining extends Application {
                 File file2 = fileChooser.showOpenDialog(stage1);
                 if(file2 != null) {
                     csvFile2 = file2.getName();
+                }else {
+                    csvFile2 = "blank.txt";
+                }
+                FileChooser fileChooser3 = new FileChooser();
+                fileChooser.setTitle("Open Stop Words Text File");
+
+                File file3 = fileChooser.showOpenDialog(stage1);
+                if(file3 != null) {
+                    csvFile3 = file3.getName();
+                }else {
+                    csvFile3 = "blank.txt";
                 }
                 try {
             /* Initialize variables */
@@ -292,11 +323,20 @@ public class DataMining extends Application {
              /* Read the csv files */
                     BufferedReader trainingDataset = new BufferedReader(new FileReader(trainingDatasetFile));
                     BufferedReader unlabeledDataset = new BufferedReader(new FileReader(unlabeledDatasetFile));
+                    BufferedReader stopWordsFile = new BufferedReader(new FileReader(csvFile3));
+
                     Set<String> arrayOfClass = new HashSet<>();
                     ArrayList<String> arrayOfWords = new ArrayList<>();
                     ArrayList<Reviews> reviewsArray = new ArrayList<>();
+                    ArrayList<String> stopWords = new ArrayList<>();
                     String line = "";
+                    String nLine = "";
                     int rows = 0;
+                    /* Add to Stop Words ArrayList */
+                    while((nLine = stopWordsFile.readLine()) != null) {
+                        stopWords.add(nLine);
+                        System.out.println(nLine);
+                    }
             /* Loop and add the content of the csv file to wordList array list*/
                     while((line = trainingDataset.readLine()) != null) {
                         String[] text = line.split(",");
@@ -308,8 +348,12 @@ public class DataMining extends Application {
                 /* Put the words inside the wordList */
                         for(String word:words) {
 //                    <row_no>_<word>_<classification>
-                            arrayOfWords.add(word);
-                            wordList.add(String.valueOf(rows)+"_"+word+"_"+classification);
+                            if(!stopWords.contains(word)) {
+                                arrayOfWords.add(word);
+                                wordList.add(String.valueOf(rows)+"_"+word+"_"+classification);
+                                System.out.println(String.valueOf(rows)+"_"+word+"_"+classification);
+                            }
+
                             //System.out.println(String.valueOf(rows)+"_"+word+"_"+classification);
                         }
 
@@ -427,42 +471,74 @@ public class DataMining extends Application {
 
 
             /* Compute the Unlabeled Dataset */
-                    toOutput+="\n\t=======================================================";
+                    double tokenMinVal = tokenMinValField;
+                    toOutput1+="Minimum value for unique tokens: "+tokenMinVal+"\n\n";
+                    toOutput1+="--------------------------------------------------------------------------------\n\n";
+                    String tempString = "";
+                    String tempString2 = "";
+                    Set<String> uniqueUnlabeledDatasetWords = new HashSet<>();
+                    double temp1 = 0.0;
+                    toOutput1+="Computed Probabilities\n\n";
                     while((line = unlabeledDataset.readLine()) != null) {
                         //System.out.println(line);
                         String[] words = line.split(" ");
-                        toOutput += "\n\t\t\t\t\tUnlabeled Dataset: "+"'"+line+"'"+"\n";
-                        double res = 0.0;
-                        double temp = 0.0;
-                        for(Map.Entry m:frequencyOfClass.entrySet()) {
-                            //System.out.println(m.getKey());
-                            for(Map.Entry n:computedWordWithClass.entrySet()) {
-                                String computedWords = String.valueOf(n.getKey());
-                                String[] arrayOfComputedWords = computedWords.split("_");
-                                for(String word:words) {
-                                    if(word.equalsIgnoreCase(arrayOfComputedWords[0]) && arrayOfComputedWords[1].equalsIgnoreCase(String.valueOf(m.getKey()))) {
-
-                                        temp = (double) n.getValue();
-                                        if(res == 0) {
-                                            res = temp;
-                                        }else {
-                                            res *= temp;
-                                        }
-                                    }else {
-
-                                    }
-                                }
+                        toOutput += "\nUnlabeled Dataset: "+"\n\n'"+line+"'"+"\n";
+                        for(String word:words) {
+                            if(!stopWords.contains(word)) {
+                                uniqueUnlabeledDatasetWords.add(word);
                             }
-                            res = res*parentProbability.get(m.getKey());
-                            toOutput+="\t=======================================================\n";
-                            toOutput+="P("+m.getKey()+") : "+(parentProbability.get(m.getKey()))+"\t";
-                            toOutput+=" - \tComputed total for P("+m.getKey()+"): "+(res)+"\n";
-                            res = 0.0;
-                            temp = 0.0;
                         }
 
                     }
 
+                    double res = 0.0;
+                    double temp = 0.0;
+
+                    for(Map.Entry m:frequencyOfClass.entrySet()) {
+                        tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset)\n\n";
+                        for(String word:uniqueUnlabeledDatasetWords) {
+                            if(computedWordWithClass.containsKey(word+"_"+m.getKey())) {
+                                tempString+=(word+"_"+m.getKey()+": "+computedWordWithClass.get(word+"_"+m.getKey()))+"\n";
+                                temp = computedWordWithClass.get(word+"_"+m.getKey());
+                                if(res == 0) {
+                                    res = temp;
+                                }else {
+                                    res *= temp;
+                                }
+                            }else {
+                                System.out.println(word);
+                                //uniqueUnlabeledDatasetWords.add(word);
+
+                            }
+                        }
+
+                        res = res*parentProbability.get(m.getKey());
+                        if(temp1 > res) {
+                            tempString2 = "";
+                            tempString2 += temp1+" (Highest computed probability)\n\n";
+
+                        }else {
+                            tempString2 = "";
+                            tempString2 += res+" (Highest computed probability)\n\n";
+                        }
+                        toOutput1+="P("+m.getKey()+"): "+(parentProbability.get(m.getKey()))+"\t\n";
+                        toOutput1+="Predicted P("+m.getKey()+"): "+res+"\n\n";
+                        temp1 = res;
+                        System.out.println(temp1);
+                        res = 0.0;
+                        temp = 0.0;
+
+                    }
+                    toOutput1+=tempString2;
+                    toOutput1+="--------------------------------------------------------------------------------\n\n";
+                    toOutput1+=tempString;
+
+                    toOutput1+="--------------------------------------------------------------------------------\n\n";
+                    toOutput1+="Unique Words from Unlabeled Dataset\n\n";
+
+                    for(String w:uniqueUnlabeledDatasetWords) {
+                        toOutput1+=w+"\n";
+                    }
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -503,10 +579,24 @@ public class DataMining extends Application {
                 table.getColumns().addAll(rowsCol, textCol, reviewClassCol);
 
                 Text text1 = new Text(toOutput);
-                final HBox hbox = new HBox();
+                TextArea textArea = new TextArea();
+                TextArea textArea2 = new TextArea();
+                textArea.setEditable(false);
+                textArea.setPrefColumnCount(10);
+                textArea.setPrefRowCount(13);
+
+                textArea2.setEditable(false);
+                textArea2.setPrefColumnCount(38);
+                textArea2.setPrefRowCount(13);
+                textArea2.setText(toOutput1);
+
+                textArea.setText(toOutput);
+                textArea.setWrapText(true);
+                HBox hbox = new HBox();
                 hbox.setSpacing(5);
                 hbox.setPadding(new Insets(10, 0, 0, 10));
-                hbox.getChildren().addAll(text1);
+                hbox.getChildren().addAll(textArea,textArea2);
+
                 final VBox vbox = new VBox();
                 vbox.setSpacing(5);
                 vbox.setPadding(new Insets(10, 0, 0, 10));
@@ -520,11 +610,32 @@ public class DataMining extends Application {
                 stage1.show();
             }
         });
-        pane.getChildren().add(welcome);
-        pane.getChildren().add(button1);
-        pane.getChildren().add(button2);
 
-        Scene scene = new Scene(pane, 300,150);
+        Text linearRegressionInst = new Text();
+        Text naiveBayesInst = new Text();
+        String out1 = "Instructions for Using Linear Regression\n - Locate the Training Dataset \n - Locate the Unlabeled Dataset";
+        String out2 = "Instructions for Using Naive Bayes\n - Set the minimum value for unique tokens \n - Locate the Training Dataset \n - Locate the Unlabeled Dataset \n - Locate the stop words list text file";
+        linearRegressionInst.setText(out1);
+        naiveBayesInst.setText(out2);
+
+        GridPane.setConstraints(welcome, 0, 0);
+        pane.getChildren().add(welcome);
+        GridPane.setConstraints(button1, 0, 1);
+        pane.getChildren().add(button1);
+        GridPane.setConstraints(button2, 0, 2);
+        pane.getChildren().add(button2);
+        GridPane.setConstraints(uniqueTokenLabel, 0, 3);
+        pane.getChildren().add(uniqueTokenLabel);
+        GridPane.setConstraints(uniqueTokenLabel2, 0, 4);
+        pane.getChildren().add(uniqueTokenLabel2);
+        GridPane.setConstraints(uniqueTokenField, 0, 5);
+        pane.getChildren().add(uniqueTokenField);
+
+        GridPane.setConstraints(linearRegressionInst, 0, 10);
+        pane.getChildren().add(linearRegressionInst);
+        GridPane.setConstraints(naiveBayesInst, 0, 11);
+        pane.getChildren().add(naiveBayesInst);
+        Scene scene = new Scene(pane, 400,400);
         primaryStage.setTitle("Data Mining Algorithms");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -610,4 +721,3 @@ public class DataMining extends Application {
     }
 
 }
-
