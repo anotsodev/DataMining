@@ -480,6 +480,7 @@ public class DataMining extends Application {
                     String tempString2 = "";
 /* Initialization of Set<String> for unique words from dataset */
                     Set<String> uniqueUnlabeledDatasetWords = new HashSet<>();
+                    Set<String> uniqueUnlabeledDatasetWords2 = new HashSet<>();
                     double temp1 = 0.0;
                     toOutput1+="Computed Probabilities\n\n";
                     while((line = unlabeledDataset.readLine()) != null) {
@@ -489,6 +490,9 @@ public class DataMining extends Application {
                         for(String word:words) {
                             if(!stopWords.contains(word)) {
                                 uniqueUnlabeledDatasetWords.add(word);
+                            }
+                            if(!stopWords.contains(word) && !uniqueWords.contains(word)) {
+                                uniqueUnlabeledDatasetWords2.add(word);
                             }
                         }
 
@@ -500,6 +504,8 @@ public class DataMining extends Application {
                     P(W|+) = P(W1|+)...P(Wn|+)
                     P(W|-) = P(W1|-)...P(Wn|-)
 */
+
+
                     for(Map.Entry m:frequencyOfClass.entrySet()) {
                         tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset)\n\n";
                         for(String word:uniqueUnlabeledDatasetWords) {
@@ -512,9 +518,9 @@ public class DataMining extends Application {
                                     res *= temp;
                                 }
                             }else {
-                                System.out.println(word);
+                                //System.out.println(word);
                                 //uniqueUnlabeledDatasetWords.add(word);
-
+                                tempString+=(word+"_"+m.getKey()+": "+tokenMinVal+" (Unique word and minimum value assigned)\n");
                             }
                         }
 
@@ -543,7 +549,7 @@ public class DataMining extends Application {
                     toOutput1+="--------------------------------------------------------------------------------\n\n";
                     toOutput1+="Unique Words from Unlabeled Dataset\n\n";
 
-                    for(String w:uniqueUnlabeledDatasetWords) {
+                    for(String w:uniqueUnlabeledDatasetWords2) {
                         toOutput1+=w+"\n";
                     }
                 }catch(Exception e) {
