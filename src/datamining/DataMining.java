@@ -481,12 +481,17 @@ public class DataMining extends Application {
 /* Initialization of Set<String> for unique words from dataset */
                     Set<String> uniqueUnlabeledDatasetWords = new HashSet<>();
                     Set<String> uniqueUnlabeledDatasetWords2 = new HashSet<>();
+                    HashMap<String, Double> highestProbabilityDesc = new HashMap<>();
                     double temp1 = 0.0;
+                    double res = 0.0;
+                    double temp = 0.0;
+                    int doc = 0;
                     toOutput1+="Computed Probabilities\n\n";
                     while((line = unlabeledDataset.readLine()) != null) {
+                        doc++;
                         //System.out.println(line);
                         String[] words = line.split(" ");
-                        toOutput += "\nUnlabeled Dataset: "+"\n\n'"+line+"'"+"\n";
+                        toOutput += "\nUnlabeled Dataset: "+doc+"\n\n'"+line+"'"+"\n";
                         for(String word:words) {
                             if(!stopWords.contains(word)) {
                                 uniqueUnlabeledDatasetWords.add(word);
@@ -495,56 +500,118 @@ public class DataMining extends Application {
                                 uniqueUnlabeledDatasetWords2.add(word);
                             }
                         }
+                        toOutput1 += "\nUnlabeled Dataset: "+doc+"\n\n";
+                        for(Map.Entry m:frequencyOfClass.entrySet()) {
+//                            tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset "+doc+")\n\n";
+                            for(String word:uniqueUnlabeledDatasetWords) {
+                                if(computedWordWithClass.containsKey(word+"_"+m.getKey())) {
+                                    //tempString+=(word+"_"+m.getKey()+": "+computedWordWithClass.get(word+"_"+m.getKey()))+"\n";
+                                    temp = computedWordWithClass.get(word+"_"+m.getKey());
+                                    if(res == 0) {
+                                        res = temp;
+                                    }else {
+                                        res *= temp;
+                                    }
+                                }else {
+                                    //System.out.println(word);
+                                    //uniqueUnlabeledDatasetWords.add(word);
+                                    //tempString+=(word+"_"+m.getKey()+": "+tokenMinVal+" (Unique word and minimum value assigned)\n");
+                                }
+                            }
+
+                            res = res*parentProbability.get(m.getKey());
+                            highestProbabilityDesc.put(String.valueOf(m.getKey()), res);
+/* Get the highest computed probability that will determine the class of unlabeled dataset */
+                            if(temp1 > res) {
+                                tempString2 = "";
+                                tempString2 += temp1+" (Highest computed probability)";
+
+
+                            }else {
+                                tempString2 = "";
+                                tempString2 += res+" (Highest computed probability)";
+                            }
+                            toOutput1+="P("+m.getKey()+"): "+(parentProbability.get(m.getKey()))+"\t\n";
+                            toOutput1+="Predicted P("+m.getKey()+"): "+res+"\n\n";
+                            temp1 = res;
+                            System.out.println(temp1+" -- "+m.getKey());
+                            res = 0.0;
+                            temp = 0.0;
+
+                        }
+                        Map.Entry<String, Double> maxEntry = null;
+
+                        for (Map.Entry<String, Double> entry : highestProbabilityDesc.entrySet())
+                        {
+                            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+                            {
+                                maxEntry = entry;
+                            }
+                        }
+                        toOutput1+=tempString2+" - "+maxEntry.getKey()+"\n\n";
 
                     }
 
-                    double res = 0.0;
-                    double temp = 0.0;
+//                    double res = 0.0;
+//                    double temp = 0.0;
 /* Compute the probability to predict the class of the unlabeled dataset 
                     P(W|+) = P(W1|+)...P(Wn|+)
                     P(W|-) = P(W1|-)...P(Wn|-)
 */
 
-
-                    for(Map.Entry m:frequencyOfClass.entrySet()) {
-                        tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset)\n\n";
-                        for(String word:uniqueUnlabeledDatasetWords) {
-                            if(computedWordWithClass.containsKey(word+"_"+m.getKey())) {
-                                tempString+=(word+"_"+m.getKey()+": "+computedWordWithClass.get(word+"_"+m.getKey()))+"\n";
-                                temp = computedWordWithClass.get(word+"_"+m.getKey());
-                                if(res == 0) {
-                                    res = temp;
-                                }else {
-                                    res *= temp;
-                                }
-                            }else {
-                                //System.out.println(word);
-                                //uniqueUnlabeledDatasetWords.add(word);
-                                tempString+=(word+"_"+m.getKey()+": "+tokenMinVal+" (Unique word and minimum value assigned)\n");
-                            }
-                        }
-
-                        res = res*parentProbability.get(m.getKey());
+//                    HashMap<String, Double> highestProbabilityDesc = new HashMap<>();
+//                    for(Map.Entry m:frequencyOfClass.entrySet()) {
+//                        tempString +="\nComputed value for "+m.getKey()+" class (Unlabeled Dataset)\n\n";
+//                        for(String word:uniqueUnlabeledDatasetWords) {
+//                            if(computedWordWithClass.containsKey(word+"_"+m.getKey())) {
+//                                tempString+=(word+"_"+m.getKey()+": "+computedWordWithClass.get(word+"_"+m.getKey()))+"\n";
+//                                temp = computedWordWithClass.get(word+"_"+m.getKey());
+//                                if(res == 0) {
+//                                    res = temp;
+//                                }else {
+//                                    res *= temp;
+//                                }
+//                            }else {
+//                                //System.out.println(word);
+//                                //uniqueUnlabeledDatasetWords.add(word);
+//                                tempString+=(word+"_"+m.getKey()+": "+tokenMinVal+" (Unique word and minimum value assigned)\n");
+//                            }
+//                        }
+//
+//                        res = res*parentProbability.get(m.getKey());
+//                        highestProbabilityDesc.put(String.valueOf(m.getKey()), res);
 /* Get the highest computed probability that will determine the class of unlabeled dataset */
-                        if(temp1 > res) {
-                            tempString2 = "";
-                            tempString2 += temp1+" (Highest computed probability)\n\n";
-
-                        }else {
-                            tempString2 = "";
-                            tempString2 += res+" (Highest computed probability)\n\n";
-                        }
-                        toOutput1+="P("+m.getKey()+"): "+(parentProbability.get(m.getKey()))+"\t\n";
-                        toOutput1+="Predicted P("+m.getKey()+"): "+res+"\n\n";
-                        temp1 = res;
-                        System.out.println(temp1);
-                        res = 0.0;
-                        temp = 0.0;
-
-                    }
-                    toOutput1+=tempString2;
-                    toOutput1+="--------------------------------------------------------------------------------\n\n";
-                    toOutput1+=tempString;
+//                        if(temp1 > res) {
+//                            tempString2 = "";
+//                            tempString2 += temp1+" (Highest computed probability)";
+//
+//
+//                        }else {
+//                            tempString2 = "";
+//                            tempString2 += res+" (Highest computed probability)";
+//                        }
+//                        toOutput1+="P("+m.getKey()+"): "+(parentProbability.get(m.getKey()))+"\t\n";
+//                        toOutput1+="Predicted P("+m.getKey()+"): "+res+"\n\n";
+//                        temp1 = res;
+//                        System.out.println(temp1+" -- "+m.getKey());
+//                        res = 0.0;
+//                        temp = 0.0;
+//
+//                    }
+//                    Map.Entry<String, Double> maxEntry = null;
+//
+//                    for (Map.Entry<String, Double> entry : highestProbabilityDesc.entrySet())
+//                    {
+//                        if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+//                        {
+//                            maxEntry = entry;
+//                        }
+//                    }
+//
+//
+//                    toOutput1+=tempString2+" - "+maxEntry.getKey()+"\n\n";
+//                    toOutput1+="--------------------------------------------------------------------------------\n\n";
+//                    toOutput1+=tempString;
 
                     toOutput1+="--------------------------------------------------------------------------------\n\n";
                     toOutput1+="Unique Words from Unlabeled Dataset\n\n";
